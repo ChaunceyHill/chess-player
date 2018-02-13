@@ -20,7 +20,7 @@ public class Board {
 	
 	/*
 	 * This is the constructor for a board, it will make a board that has the starting 
-	 * position of chess
+	 * state of chess
 	 */
 	public Board(){
 		pieces = new Piece[8][8];
