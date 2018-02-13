@@ -5,7 +5,7 @@ public class Pawn implements Piece{
 	
 	public final int color;
 	public Square position;
-	public 
+	//public 
 	
 	
 	public Pawn(){
