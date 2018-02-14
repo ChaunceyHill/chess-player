@@ -11,7 +11,22 @@ public class Game {
 		status = new Board();
 	}
 	
-	public static void Main(String[] args){
+	public boolean done(){
+		return true;
+	}
+	
+	public void turn(){
 		
+	}
+	
+	public void play(){
+		while(!done()){
+			turn();
+		}
+	}
+	
+	public static void Main(String[] args){
+		Game game = new Game();
+		game.play();
 	}
 }
