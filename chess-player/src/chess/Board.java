@@ -21,9 +21,10 @@ public class Board {
 				System.out.print(pieces[i][j].representation() + " ");
 			}
 			System.out.println();
+			
 		}
 		
-		System.out.println("  A B C D E F G H");
+		System.out.println("  A  B  C  D  E  F  G  H");
 	}
 	
 	/*
@@ -38,11 +39,16 @@ public class Board {
 			}
 		}
 		for(int i = 0; i < WIDTH; ++i){
-			pieces[0][i] = new Pawn(0,i, WHITE);
 			pieces[1][i] = new Pawn(0,i, WHITE);
-			pieces[6][i] = new Pawn(0,i, BLACK);
-			pieces[7][i] = new Pawn(0,i, BLACK);
+			pieces[6][i] = new Pawn(0,i, BLACK);	
 		}
+		Piece[] whites = {new Rook(0,7, WHITE),new Knight(0,6, WHITE),new Bishop(0,5, WHITE),new King(0,4, WHITE),
+				new Queen(0,4, WHITE),new Bishop(0,2, WHITE),new Knight(0,1, WHITE),new Rook(0,0, WHITE)};
+		Piece[] blacks = {new Rook(7,7, BLACK),new Knight(7,6, BLACK),new Bishop(7,5, BLACK),new King(7,4, BLACK),
+				new Queen(7,4, BLACK),new Bishop(7,2, BLACK),new Knight(7,1, BLACK),new Rook(7,0, BLACK)};
+		pieces[0] = whites;
+		pieces[7] = blacks;
+		
 		
 	}
 	public static void main (String[] args){

@@ -38,7 +38,12 @@ public class Pawn implements Piece{
 	
 	@Override
 	public String representation(){
-		return "P";
+		if(color == WHITE){
+			return "Pw";
+		}
+		else{
+			return "Pb";
+		}
 	}
 	
 	public Pawn(int a, int b, int color){

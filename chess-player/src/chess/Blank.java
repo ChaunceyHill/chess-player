@@ -36,7 +36,7 @@ public class Blank implements Piece{
 	
 	@Override
 	public String representation(){
-		return "-";
+		return "- ";
 	}
 	
 	public Blank(int a, int b){
