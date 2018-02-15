@@ -5,6 +5,8 @@ public class Pawn implements Piece{
 	
 	public final int color;
 	public Square position;
+	public int rank;
+	public int file;
 	//public 
 	
 	
@@ -13,7 +15,7 @@ public class Pawn implements Piece{
 	}
 	
 	@Override
-	public Square[] possibleMoves() {
+	public Move[] possibleMoves() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -32,6 +34,17 @@ public class Pawn implements Piece{
 	public boolean move(Square dest) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+	
+	@Override
+	public String representation(){
+		return "P";
+	}
+	
+	public Pawn(int a, int b, int color){
+		rank = a;
+		file = b;
+		this.color = color;
 	}
 
 }

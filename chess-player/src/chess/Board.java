@@ -15,7 +15,15 @@ public class Board {
 	 * every time a move is made
 	 */
 	public void draw(){
+		for(int i = 0; i < HEIGHT; ++i){
+			System.out.print(i + 1 + " ");
+			for (int j = 0; j < WIDTH; ++j){
+				System.out.print(pieces[i][j].representation() + " ");
+			}
+			System.out.println();
+		}
 		
+		System.out.println("  A B C D E F G H");
 	}
 	
 	/*
@@ -23,11 +31,22 @@ public class Board {
 	 * state of chess
 	 */
 	public Board(){
-		pieces = new Piece[8][8];
-		for(int i = 2; i <= HEIGHT -2; ++i){
+		pieces = new Piece[HEIGHT][WIDTH];
+		for(int i = 0; i < HEIGHT; ++i){
 			for(int j = 0; j < WIDTH; ++j){
-				
+				pieces[i][j] = new Blank(i,j);
 			}
 		}
+		for(int i = 0; i < WIDTH; ++i){
+			pieces[0][i] = new Pawn(0,i, WHITE);
+			pieces[1][i] = new Pawn(0,i, WHITE);
+			pieces[6][i] = new Pawn(0,i, BLACK);
+			pieces[7][i] = new Pawn(0,i, BLACK);
+		}
+		
+	}
+	public static void main (String[] args){
+		Board myBoard = new Board();
+		myBoard.draw();
 	}
 }

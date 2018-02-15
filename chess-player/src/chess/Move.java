@@ -5,6 +5,7 @@ public class Move {
 	public static final boolean COLOUR_WHITE = true;
 	public static final boolean COLOUR_BLACK = false;
 	
+	boolean taking;
 	Piece piece;
 	Square start;
 	Square end;
@@ -12,7 +13,7 @@ public class Move {
 	//will implement a way to track castling later on
 	
 	
-	public Move(Piece piece, Square start, Square end){
+	public Move(Piece piece, Square start, Square end, boolean taking){
 		//constructor
 		//need to copy construct all of these will implement those constructors then this
 	}
