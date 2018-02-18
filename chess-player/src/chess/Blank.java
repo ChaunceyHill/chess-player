@@ -1,5 +1,6 @@
 package chess;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class Blank implements Piece{
@@ -11,9 +12,9 @@ public class Blank implements Piece{
 	int rank;
 	
 	@Override
-	public Set<int[]> possibleMoves() {
-		// TODO Auto-generated method stub
-		return null;
+	public Set<Square> possibleMoves(Piece[][] board) {
+		Set ans = new HashSet<int[]>();
+		return ans;
 	}
 
 	@Override
@@ -25,7 +26,7 @@ public class Blank implements Piece{
 	@Override
 	public int getColor() {
 		// TODO Auto-generated method stub
-		return 0;
+		return COLORLESS;
 	}
 
 	@Override

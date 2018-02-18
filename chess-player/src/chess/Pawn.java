@@ -4,8 +4,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Pawn implements Piece{
-
-	
 	public final int color;
 	public Square position;
 	public int rank;
@@ -18,11 +16,36 @@ public class Pawn implements Piece{
 	}
 	
 	@Override
-	public Set<int[]> possibleMoves() {
-		// TODO Auto-generated method stub
-		Set<int[]> moves = new HashSet<int[]>();
+	public Set<Square> possibleMoves(Piece[][] board) {
+		Set<Square> moves = new HashSet<Square>();	
+		int dir = this.color == WHITE ? 1 : -1;
+		int opp = this.color == WHITE ? BLACK : WHITE;
 		
-		
+		if(rank == 3 && color == WHITE){
+			if(board[4][file].getColor() == COLORLESS){
+				if(board[5][file].getColor() == COLORLESS){
+					moves.add(new Square(file, 5, this));
+				}
+			}
+		}
+		if(rank == 8 && color == BLACK){
+			if(board[7][file].getColor() == COLORLESS){
+				if(board[6][file].getColor() == COLORLESS){
+					moves.add(new Square(file, 6, this));
+				}
+			}
+		}
+		System.out.println(board.length + " " + board[0].length);
+		System.out.println(rank + " " + dir +  "  " + file);
+		if(board[rank + dir][file].getColor() == COLORLESS){
+		moves.add(new Square(file, rank+dir, this));
+		}
+		if(board[rank + dir][file + 1].getColor() == opp){
+			moves.add(new Square(file+1, rank+1, this));
+		}
+		if(board[rank + dir][file - 1].getColor() == opp){
+			moves.add(new Square(file-1, rank+1, this));
+		}
 		return moves;
 	}
 

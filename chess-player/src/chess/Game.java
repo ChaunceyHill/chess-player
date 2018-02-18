@@ -2,6 +2,7 @@ package chess;
 
 import java.util.LinkedList;
 import java.util.Scanner;
+import java.util.Set;
 
 public class Game {
 	Board status;
@@ -26,9 +27,13 @@ public class Game {
 	}
 
 	public void turn(){
+		Set<Square> moves = status.getAllMoves();
+		for(Square a: moves){
+			System.out.println(a.getX() + " " + a.getY() + " " + a.getPiece().representation());
+		}
 		String move = getInput();
 		if(this.status.isValid(move)){
-			this.status.apply(move);
+			System.out.println(this.status.apply(move));
 		}
 	}
 

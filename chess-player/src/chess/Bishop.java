@@ -1,5 +1,6 @@
 package chess;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class Bishop implements Piece {
@@ -21,9 +22,9 @@ public class Bishop implements Piece {
 	}
 	
 	@Override
-	public Set<int[]> possibleMoves() {
-		// TODO Auto-generated method stub
-		return null;
+	public Set<Square> possibleMoves(Piece[][] board) {
+		Set<Square> moves = new HashSet<Square>();	
+		return moves;
 	}
 
 	@Override

@@ -1,25 +1,38 @@
 package chess;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class Board {
 	
 	public static final int BLACK = 1;
 	public static final int WHITE = 0;
+	public static final int COLORLESS = -1;
 	public static final int HEIGHT = 8;
 	public static final int WIDTH = 8;
 	
 	private Piece[][] pieces;
 	private boolean[] canCastle = {true, true};
+	/**
+	 * convert a coordinate pair to account for padding
+	 * @param cords
+	 * @return
+	 */
+	public int[] convert(int[] cords){
+		int[] ans = new int[2];
+		ans[0] = cords[0] + 2;
+		ans[1] = cords[1] + 2;
+		return ans;
+	}
 	
 	/*
 	 * This will be the method that updates the board on the graphical user interface
 	 * every time a move is made
 	 */
 	public void draw(){
-		for(int i = HEIGHT-1; i >= 0; --i){
-			System.out.print(i + 1 + " ");
-			for (int j = 0; j < WIDTH; ++j){
+		for(int i = HEIGHT+1; i >= 2; --i){
+			System.out.print(i - 1 + " ");
+			for (int j = 2; j < WIDTH + 2; ++j){
 				System.out.print(pieces[i][j].representation() + " ");
 			}
 			System.out.println();
@@ -29,17 +42,41 @@ public class Board {
 		System.out.println("  A  B  C  D  E  F  G  H");
 	}
 	
+	public Set<Square> getAllMoves(){
+		Set<Square> moves = new HashSet<Square>();
+		for(int i = 0; i < pieces.length; ++i){
+			for(int j = 0; j < pieces.length; ++j){
+				System.out.println(pieces[i][j].representation() + " " + i + " " + j);
+				moves.addAll(pieces[i][j].possibleMoves(pieces));
+			}
+		}
+		return moves;
+	}
+	
 	public boolean apply(String s){
 		char[] chars = s.toCharArray();
 		int x1 = chars[0] - 'a';
 		int y1 = chars[1] - '1';
 		int x2 = chars[2] - 'a';
 		int y2 = chars[3] - '1';
-		Piece start = pieces[y1][x1];
-		Set<int[]> moves = start.possibleMoves();
+		int[] startSpot = {x1,y1};
+		int[] endSpot = {x2,y2};
+		System.out.println(startSpot[0] + " " + startSpot[1]);
+		startSpot = convert(startSpot);
+		endSpot = convert(endSpot);
+		Piece start = pieces[startSpot[1]][startSpot[0]];
+		if(start.getColor() == COLORLESS){
+			return false;
+		}
 		
-		pieces[y2][x2] = start;
-		pieces[y1][x1] = new Blank(y1,x1);
+		
+		Set<Square> moves = start.possibleMoves( pieces);
+		
+		pieces[endSpot[1]][endSpot[0]] = start;
+		pieces[startSpot[1]][startSpot[0]] = new Blank(startSpot[1],startSpot[0]);
+		
+		System.out.println(startSpot[0] + " " + startSpot[1]);
+		System.out.println(start.representation());
 		
 		return false;
 	}
@@ -62,22 +99,24 @@ public class Board {
 	 * state of chess
 	 */
 	public Board(){
-		pieces = new Piece[HEIGHT][WIDTH];
-		for(int i = 0; i < HEIGHT; ++i){
-			for(int j = 0; j < WIDTH; ++j){
+		pieces = new Piece[HEIGHT + 4][WIDTH + 4];//padding for easy move checking
+		for(int i = 0; i < HEIGHT + 4; ++i){
+			for(int j = 0; j < WIDTH + 4; ++j){
 				pieces[i][j] = new Blank(i,j);
 			}
 		}
-		for(int i = 0; i < WIDTH; ++i){
-			pieces[1][i] = new Pawn(0,i, WHITE);
-			pieces[6][i] = new Pawn(0,i, BLACK);	
+		for(int i = 2; i < WIDTH + 2; ++i){
+			pieces[3][i] = new Pawn(2,i, WHITE);
+			pieces[8][i] = new Pawn(8,i, BLACK);	
 		}
-		Piece[] whites = {new Rook(0,7, WHITE),new Knight(0,6, WHITE),new Bishop(0,5, WHITE),new Queen(0,4, WHITE),
-				new King(0,3, WHITE),new Bishop(0,2, WHITE),new Knight(0,1, WHITE),new Rook(0,0, WHITE)};
-		Piece[] blacks = {new Rook(7,7, BLACK),new Knight(7,6, BLACK),new Bishop(7,5, BLACK),new Queen(7,4, BLACK),
-				new King(7,3, BLACK),new Bishop(7,2, BLACK),new Knight(7,1, BLACK),new Rook(7,0, BLACK)};
-		pieces[0] = whites;
-		pieces[7] = blacks;
+		Piece[] whites = {new Blank(2,11), new Blank(2,10),new Rook(2,9, WHITE),new Knight(2,8, WHITE),
+				new Bishop(2,7, WHITE),new Queen(2,6, WHITE), new King(2,5, WHITE),new Bishop(2,4, WHITE),
+				new Knight(2,3, WHITE),new Rook(2,2, WHITE), new Blank(2,1), new Blank(2,0)};
+		Piece[] blacks = {new Blank(9,11), new Blank(9,10),new Rook(9,9, BLACK),new Knight(9,8, BLACK),
+				new Bishop(9,7, BLACK),new Queen(9,6, BLACK),new King(9,5, BLACK),new Bishop(9,4, BLACK)
+				,new Knight(9,3, BLACK),new Rook(9,2, BLACK), new Blank(9,1), new Blank(9,0)};
+		pieces[2] = whites;
+		pieces[9] = blacks;
 		
 		
 	}

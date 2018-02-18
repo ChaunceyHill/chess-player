@@ -11,7 +11,7 @@ public interface Piece {
 	public static final int WIDTH = 8;
 	
 	
-	public Set<int[]> possibleMoves();
+	public Set<Square> possibleMoves(Piece[][] board);
 	public Square getPos();
 	public int getColor();
 	public boolean move(Square dest);
