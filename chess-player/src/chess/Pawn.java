@@ -1,5 +1,8 @@
 package chess;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class Pawn implements Piece{
 
 	
@@ -15,9 +18,12 @@ public class Pawn implements Piece{
 	}
 	
 	@Override
-	public Move[] possibleMoves() {
+	public Set<int[]> possibleMoves() {
 		// TODO Auto-generated method stub
-		return null;
+		Set<int[]> moves = new HashSet<int[]>();
+		
+		
+		return moves;
 	}
 
 	@Override

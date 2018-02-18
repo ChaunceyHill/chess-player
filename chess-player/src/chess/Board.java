@@ -1,5 +1,7 @@
 package chess;
 
+import java.util.Set;
+
 public class Board {
 	
 	public static final int BLACK = 1;
@@ -15,7 +17,7 @@ public class Board {
 	 * every time a move is made
 	 */
 	public void draw(){
-		for(int i = 0; i < HEIGHT; ++i){
+		for(int i = HEIGHT-1; i >= 0; --i){
 			System.out.print(i + 1 + " ");
 			for (int j = 0; j < WIDTH; ++j){
 				System.out.print(pieces[i][j].representation() + " ");
@@ -25,6 +27,34 @@ public class Board {
 		}
 		
 		System.out.println("  A  B  C  D  E  F  G  H");
+	}
+	
+	public boolean apply(String s){
+		char[] chars = s.toCharArray();
+		int x1 = chars[0] - 'a';
+		int y1 = chars[1] - '1';
+		int x2 = chars[2] - 'a';
+		int y2 = chars[3] - '1';
+		Piece start = pieces[y1][x1];
+		Set<int[]> moves = start.possibleMoves();
+		
+		pieces[y2][x2] = start;
+		pieces[y1][x1] = new Blank(y1,x1);
+		
+		return false;
+	}
+	
+	public boolean isValid(String s){
+		if(s.length()>=4){
+			char[] chars = s.toCharArray();
+			int x1 = chars[0] - 'a';
+			int y1 = chars[1] - '1';
+			int x2 = chars[2] - 'a';
+			int y2 = chars[3] - '1';
+			System.out.println("(" + x1 + ", " + y1 + "),(" + x2 + ", " + y2 + ")");
+			return true;
+		}	
+		return false;
 	}
 	
 	/*
@@ -42,17 +72,14 @@ public class Board {
 			pieces[1][i] = new Pawn(0,i, WHITE);
 			pieces[6][i] = new Pawn(0,i, BLACK);	
 		}
-		Piece[] whites = {new Rook(0,7, WHITE),new Knight(0,6, WHITE),new Bishop(0,5, WHITE),new King(0,4, WHITE),
-				new Queen(0,4, WHITE),new Bishop(0,2, WHITE),new Knight(0,1, WHITE),new Rook(0,0, WHITE)};
-		Piece[] blacks = {new Rook(7,7, BLACK),new Knight(7,6, BLACK),new Bishop(7,5, BLACK),new King(7,4, BLACK),
-				new Queen(7,4, BLACK),new Bishop(7,2, BLACK),new Knight(7,1, BLACK),new Rook(7,0, BLACK)};
+		Piece[] whites = {new Rook(0,7, WHITE),new Knight(0,6, WHITE),new Bishop(0,5, WHITE),new Queen(0,4, WHITE),
+				new King(0,3, WHITE),new Bishop(0,2, WHITE),new Knight(0,1, WHITE),new Rook(0,0, WHITE)};
+		Piece[] blacks = {new Rook(7,7, BLACK),new Knight(7,6, BLACK),new Bishop(7,5, BLACK),new Queen(7,4, BLACK),
+				new King(7,3, BLACK),new Bishop(7,2, BLACK),new Knight(7,1, BLACK),new Rook(7,0, BLACK)};
 		pieces[0] = whites;
 		pieces[7] = blacks;
 		
 		
 	}
-	public static void main (String[] args){
-		Board myBoard = new Board();
-		myBoard.draw();
-	}
+	
 }

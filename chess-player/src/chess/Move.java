@@ -21,7 +21,7 @@ public class Move {
 	}
 	
 	public Move(String s){
-		//construct a move from a string
+
 	}
 	
 	/**

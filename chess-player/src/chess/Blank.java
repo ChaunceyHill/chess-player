@@ -1,6 +1,6 @@
 package chess;
 
-
+import java.util.Set;
 
 public class Blank implements Piece{
 
@@ -11,7 +11,7 @@ public class Blank implements Piece{
 	int rank;
 	
 	@Override
-	public Move[] possibleMoves() {
+	public Set<int[]> possibleMoves() {
 		// TODO Auto-generated method stub
 		return null;
 	}

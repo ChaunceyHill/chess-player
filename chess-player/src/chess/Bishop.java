@@ -1,5 +1,7 @@
 package chess;
 
+import java.util.Set;
+
 public class Bishop implements Piece {
 
 	public final int color;
@@ -19,7 +21,7 @@ public class Bishop implements Piece {
 	}
 	
 	@Override
-	public Move[] possibleMoves() {
+	public Set<int[]> possibleMoves() {
 		// TODO Auto-generated method stub
 		return null;
 	}
