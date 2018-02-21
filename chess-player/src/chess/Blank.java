@@ -40,6 +40,12 @@ public class Blank implements Piece{
 		return "- ";
 	}
 	
+	@Override
+	public void updatePos(int file, int rank){
+		this.file = file;
+		this.rank = rank;
+	}
+	
 	public Blank(int a, int b){
 		file = b;
 		rank = a;

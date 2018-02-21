@@ -53,4 +53,9 @@ public class Rook implements Piece{
 		file = b;
 		this.color = color;
 	}
+	@Override
+	public void updatePos(int file, int rank){
+		this.file = file;
+		this.rank = rank;
+	}
 }

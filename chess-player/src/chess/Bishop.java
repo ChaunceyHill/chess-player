@@ -53,5 +53,11 @@ public class Bishop implements Piece {
 		}
 	}
 	
+	@Override
+	public void updatePos(int file, int rank){
+		this.file = file;
+		this.rank = rank;
+	}
+	
 	
 }

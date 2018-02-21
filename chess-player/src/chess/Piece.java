@@ -16,5 +16,6 @@ public interface Piece {
 	public int getColor();
 	public boolean move(Square dest);
 	public String representation();
+	public void updatePos(int file, int rank);
 	
 }

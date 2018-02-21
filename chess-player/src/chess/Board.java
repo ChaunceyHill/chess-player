@@ -46,39 +46,32 @@ public class Board {
 		Set<Square> moves = new HashSet<Square>();
 		for(int i = 0; i < pieces.length; ++i){
 			for(int j = 0; j < pieces.length; ++j){
-				System.out.println(pieces[i][j].representation() + " " + i + " " + j);
+				//System.out.println(pieces[i][j].representation() + " " + i + " " + j);
 				moves.addAll(pieces[i][j].possibleMoves(pieces));
 			}
 		}
 		return moves;
 	}
 	
-	public boolean apply(String s){
-		char[] chars = s.toCharArray();
-		int x1 = chars[0] - 'a';
-		int y1 = chars[1] - '1';
-		int x2 = chars[2] - 'a';
-		int y2 = chars[3] - '1';
-		int[] startSpot = {x1,y1};
-		int[] endSpot = {x2,y2};
-		System.out.println(startSpot[0] + " " + startSpot[1]);
-		startSpot = convert(startSpot);
-		endSpot = convert(endSpot);
-		Piece start = pieces[startSpot[1]][startSpot[0]];
+	public boolean apply(Square move){
+		
+		Piece start = pieces[move.getYStart()][move.getXStart()];
 		if(start.getColor() == COLORLESS){
 			return false;
 		}
+					
+		pieces[move.getYEnd()][move.getXEnd()] = start;
+		pieces[move.getYStart()][move.getXStart()] = new Blank(move.getYStart(),move.getXStart());
 		
-		
-		Set<Square> moves = start.possibleMoves( pieces);
-		
-		pieces[endSpot[1]][endSpot[0]] = start;
-		pieces[startSpot[1]][startSpot[0]] = new Blank(startSpot[1],startSpot[0]);
-		
-		System.out.println(startSpot[0] + " " + startSpot[1]);
-		System.out.println(start.representation());
+		pieces[move.getYEnd()][move.getXEnd()].updatePos(move.getXEnd(), move.getYEnd());
+
+		System.out.println();
 		
 		return false;
+	}
+	
+	public int getColor(int rank, int file){
+		 return pieces[rank][file].getColor();
 	}
 	
 	public boolean isValid(String s){
@@ -88,7 +81,7 @@ public class Board {
 			int y1 = chars[1] - '1';
 			int x2 = chars[2] - 'a';
 			int y2 = chars[3] - '1';
-			System.out.println("(" + x1 + ", " + y1 + "),(" + x2 + ", " + y2 + ")");
+			//System.out.println("(" + x1 + ", " + y1 + "),(" + x2 + ", " + y2 + ")");
 			return true;
 		}	
 		return false;
@@ -106,7 +99,7 @@ public class Board {
 			}
 		}
 		for(int i = 2; i < WIDTH + 2; ++i){
-			pieces[3][i] = new Pawn(2,i, WHITE);
+			pieces[3][i] = new Pawn(3,i, WHITE);
 			pieces[8][i] = new Pawn(8,i, BLACK);	
 		}
 		Piece[] whites = {new Blank(2,11), new Blank(2,10),new Rook(2,9, WHITE),new Knight(2,8, WHITE),

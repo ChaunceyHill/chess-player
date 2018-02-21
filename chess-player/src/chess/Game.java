@@ -8,11 +8,13 @@ public class Game {
 	Board status;
 	public LinkedList<Move> history;
 	Scanner sc;
+	int turn;
 
 	public Game(){
 		history = new LinkedList<Move>();
 		status = new Board();
 		sc = new Scanner(System.in);
+		turn = 0;
 	}
 
 	public boolean done(){
@@ -21,20 +23,32 @@ public class Game {
 
 	public String getInput(){
 		String ans = sc.nextLine();
-		System.out.println(ans);
+		//System.out.println(ans);
 
 		return ans;
 	}
 
 	public void turn(){
+		
+		
 		Set<Square> moves = status.getAllMoves();
-		for(Square a: moves){
-			System.out.println(a.getX() + " " + a.getY() + " " + a.getPiece().representation());
+		Square move = new Square(getInput());
+		System.out.println(move.toString());
+		if(moves.contains(move)){
+			if(turn % 2 == status.getColor(move.getYStart(), move.getXStart())){
+				status.apply(move);
+				++turn;
+			}
+			else{
+				System.out.println("That's not your piecee");
+			}
 		}
-		String move = getInput();
-		if(this.status.isValid(move)){
-			System.out.println(this.status.apply(move));
+		else{
+
+			System.out.println("not a legal move");
 		}
+			
+		
 	}
 
 	public void play(){
