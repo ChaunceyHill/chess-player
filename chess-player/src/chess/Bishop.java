@@ -24,6 +24,50 @@ public class Bishop implements Piece {
 	@Override
 	public Set<Square> possibleMoves(Piece[][] board) {
 		Set<Square> moves = new HashSet<Square>();	
+		for(int i = 0; i < 8; ++i) {
+			if (board[rank +i][file+i].getColor() == COLORLESS) {
+				moves.add(new Square(file + i, rank + i, file, rank));
+			}
+			else {
+				if(board[rank +i][file +i].getColor() + color == 1) {
+					moves.add(new Square(file + i, rank + i, file, rank));
+				}
+				break;
+			}
+		}
+		for(int i = 0; i < 8; ++i) {
+			if (board[rank -i][file+i].getColor() == COLORLESS) {
+				moves.add(new Square(file + i, rank - i, file, rank));
+			}
+			else {
+				if(board[rank -i][file +i].getColor() + color == 1) {
+					moves.add(new Square(file + i, rank - i, file, rank));
+				}
+				break;
+			}
+		}
+		for(int i = 0; i < 8; ++i) {
+			if (board[rank -i][file-i].getColor() == COLORLESS) {
+				moves.add(new Square(file - i, rank - i, file, rank));
+			}
+			else {
+				if(board[rank -i][file -i].getColor() + color == 1) {
+					moves.add(new Square(file - i, rank - i, file, rank));
+				}
+				break;
+			}
+		}
+		for(int i = 0; i < 8; ++i) {
+			if (board[rank +i][file-i].getColor() == COLORLESS) {
+				moves.add(new Square(file - i, rank + i, file, rank));
+			}
+			else {
+				if(board[rank +i][file -i].getColor() + color == 1) {
+					moves.add(new Square(file - i, rank + i, file, rank));
+				}
+				break;
+			}
+		}
 		return moves;
 	}
 
